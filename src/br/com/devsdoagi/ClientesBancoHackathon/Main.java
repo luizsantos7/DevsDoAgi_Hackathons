@@ -1,31 +1,45 @@
 package br.com.devsdoagi.ClientesBancoHackathon;
 
-import br.com.devsdoagi.ClientesBancoHackathon.Cliente;
+
+//LUCAS DAROS
+//LUIZ HENRIQUE
+//LUAN SILVA
 
 import java.util.*;
 
 public class Main {
 
+    // Criação de coleções para retenção de dados
     private static Set<Cliente> clientes = new HashSet<>();
     private static Map<Integer, Conta> contas = new HashMap<>();
 
+    // Listagem de cpfs dos clientes já cadastrados
+    private static List<String> cpfs = new LinkedList<>();
+
+    // Numero inicial padrão para criação de contas
     private static int numeroConta = 1001;
 
-    private static void cadastrarCliente(Scanner sc) {
-        System.out.println("digite o seu nome:");
+
+    private static void cadastrarCliente(Scanner sc, List<String> cpfs) {
+        System.out.println("Digite o seu nome:");
         String nome = sc.next();
-        System.out.println("digite o seu cpf:");
+        System.out.println("Digite o seu cpf:");
         String cpf = sc.next();
 
-        Cliente cl = new Cliente(nome, cpf);
-        clientes.add(cl);
-    }
+        if (cpfs.contains(cpf)) {
+            System.out.println("Cpf ja cadastrado!");
+        }else{
+            Cliente cl = new Cliente(nome, cpf);
+            cpfs.add(cpf);
+            clientes.add(cl);
+    }}
 
     private static void cadastrarConta(Scanner sc) {
 
-        System.out.println("digite o seu cpf:");
+        System.out.println("Digite o seu cpf:");
         String cpf = sc.next();
 
+        // Percorre
         for(Cliente cl : clientes){
             if (Objects.equals(cpf, cl.getCpf())){
                 Conta co = new Conta(numeroConta,cl);
@@ -179,7 +193,7 @@ public class Main {
 
             switch (opcao) {
                 case 1:
-                    cadastrarCliente(sc);
+                    cadastrarCliente(sc, cpfs);
                     break;
                 case 2:
                     cadastrarConta(sc);
